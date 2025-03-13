@@ -1,0 +1,69 @@
+/* Aanvullende stijlen bovenop Tailwind CSS */
+
+/* Animatie voor kopieer bericht */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+#copySuccess, #downloadSuccess {
+    animation: fadeOut 2s forwards;
+}
+
+/* Styling voor JSON output */
+#jsonResult {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    line-height: 1.5;
+    tab-size: 4;
+}
+
+/* Verbeterde focus styling voor toegankelijkheid */
+:focus {
+    outline: 2px solid rgba(99, 102, 241, 0.5);
+    outline-offset: 2px;
+}
+
+/* Overgang effecten */
+.transition-all {
+    transition: all 0.3s ease;
+}
+
+/* Hover effect voor de drop zone */
+.border-dashed:hover {
+    border-color: #6366F1;
+}
+
+/* Spinner voor laden */
+.spinner {
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top: 3px solid #6366F1;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsieve aanpassingen */
+@media (max-width: 640px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    #jsonResult {
+        max-height: 300px;
+    }
+}
