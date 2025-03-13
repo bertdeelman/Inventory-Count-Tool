@@ -24,7 +24,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 fileName.textContent = `Geselecteerd bestand: ${file.name}`;
                 
-                // Activeer de converteerknop als er ook een referentienaam is
+                // Vul automatisch de bestandsnaam in als referentienaam (zonder extensie)
+                const baseFileName = file.name.replace(/\.(xlsx|xls)$/i, '');
+                referenceName.value = baseFileName;
+                
+                // Activeer de converteerknop
                 checkEnableButton();
             } else {
                 fileName.textContent = 'Fout: Selecteer een geldig Excel-bestand (.xlsx of .xls)';
