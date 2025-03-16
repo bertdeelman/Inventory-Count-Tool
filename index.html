@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excel naar JSON Converter</title>
+    <title>Inventory Count Tool</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -12,27 +12,74 @@
 <body class="bg-gray-100 min-h-screen">
     <div class="container mx-auto px-4 py-8">
         <header class="mb-8">
-            <h1 class="text-3xl font-bold text-center text-indigo-700">Excel naar JSON Converter</h1>
-            <p class="text-center text-gray-600 mt-2">Upload een Excel bestand en converteer het naar JSON</p>
+            <div class="flex justify-between items-center mb-2">
+                <div></div> <!-- Empty div for alignment -->
+                <h1 class="text-3xl font-bold text-center text-indigo-700">Inventory Count Tool</h1>
+                <div class="dark-mode-toggle" id="darkModeToggle" title="Toggle light/dark mode">
+                    <!-- Moon icon (for light mode) -->
+                    <svg id="moonIcon" class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                    <!-- Sun icon (for dark mode) -->
+                    <svg id="sunIcon" class="w-6 h-6 text-yellow-300 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                </div>
+            </div>
+            <p class="text-center text-gray-600 mt-2">Upload an Excel file and convert it to JSON</p>
         </header>
 
-        <main class="bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto">
+        <main class="bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto app-card">
+            <!-- API Status Indicator -->
+            <div class="mb-6 flex justify-end">
+                <div class="flex items-center">
+                    <span class="text-sm text-gray-600 mr-2">API Status:</span>
+                    <div id="apiStatusIndicator" class="flex items-center">
+                        <div id="apiStatusDot" class="w-3 h-3 rounded-full bg-gray-400 mr-1"></div>
+                        <span id="apiStatusText" class="text-sm text-gray-600">Checking...</span>
+                    </div>
+                    <button id="checkApiBtn" class="ml-2 text-sm text-indigo-600 hover:text-indigo-800">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ID Type Selection -->
             <div class="mb-6">
-                <label for="referenceName" class="block text-gray-700 font-medium mb-2">Referentie Naam:</label>
-                <input type="text" id="referenceName" placeholder="Bijv. 123INKT-week 9" 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <label class="block text-gray-700 font-medium mb-2">ID Type:</label>
+                <div class="flex space-x-4">
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="idType" value="ExtLocationId" class="form-radio text-indigo-600" checked>
+                        <span class="ml-2">ExtLocationId</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="idType" value="ExtProductId" class="form-radio text-indigo-600">
+                        <span class="ml-2">ExtProductId</span>
+                    </label>
+                </div>
             </div>
 
             <div class="mb-6">
-                <label for="fileUpload" class="block text-gray-700 font-medium mb-2">Excel Bestand:</label>
+                <label for="referenceName" class="block text-gray-700 font-medium mb-2">Ref Id.:</label>
+                <input type="text" id="referenceName" placeholder="Enter reference identifier" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-gray-800">
+            </div>
+
+            <div class="mb-6">
+                <label for="fileUpload" class="block text-gray-700 font-medium mb-2">Excel File:</label>
                 <div class="flex items-center justify-center w-full">
                     <label for="fileUpload" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                             </svg>
-                            <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Klik om te uploaden</span> of sleep bestand hier</p>
-                            <p class="text-xs text-gray-500">Excel bestanden (.xlsx, .xls)</p>
+                            <p class="mb-2 text-sm text-gray-500">
+                                <span class="font-semibold">Click to upload</span> 
+                                <span>or drag file here</span>
+                            </p>
+                            <p class="text-xs text-gray-500">Excel files (.xlsx, .xls)</p>
                         </div>
                         <input id="fileUpload" type="file" class="hidden" accept=".xlsx, .xls" />
                     </label>
@@ -42,36 +89,45 @@
 
             <div class="flex justify-center mb-6">
                 <button id="convertBtn" class="px-6 py-3 bg-indigo-600 text-white font-medium rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>
-                    Converteer naar JSON
+                    Convert to JSON
                 </button>
             </div>
 
             <div id="resultContainer" class="hidden">
                 <div class="mb-4 flex justify-between items-center">
-                    <h2 class="text-xl font-semibold text-gray-800">JSON Resultaat:</h2>
+                    <h2 class="text-xl font-semibold text-gray-800">JSON Result:</h2>
                     <div class="flex space-x-2">
+                        <button id="sendApiBtn" class="px-4 py-2 bg-purple-600 text-white font-medium rounded-md shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                            Send to API
+                        </button>
                         <button id="downloadBtn" class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                             Download JSON
                         </button>
                         <button id="copyBtn" class="px-4 py-2 bg-green-600 text-white font-medium rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                            Kopieer JSON
+                            Copy JSON
                         </button>
                     </div>
                 </div>
                 <div class="relative">
                     <pre id="jsonResult" class="bg-gray-800 text-green-400 p-4 rounded-md overflow-auto max-h-96"></pre>
                     <div id="copySuccess" class="hidden absolute top-2 right-2 bg-green-500 text-white px-3 py-1 rounded-md text-sm">
-                        Gekopieerd!
+                        Copied!
                     </div>
                     <div id="downloadSuccess" class="hidden absolute top-2 right-2 bg-blue-500 text-white px-3 py-1 rounded-md text-sm">
-                        Gedownload!
+                        Downloaded!
+                    </div>
+                    <div id="apiSuccess" class="hidden absolute top-2 right-2 bg-purple-500 text-white px-3 py-1 rounded-md text-sm">
+                        Sent to API!
+                    </div>
+                    <div id="apiError" class="hidden absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-md text-sm">
+                        API error!
                     </div>
                 </div>
             </div>
         </main>
 
         <footer class="mt-8 text-center text-gray-500 text-sm">
-            <p>Excel naar JSON Converter &copy; 2025</p>
+            <p>Inventory Count Tool &copy; 2025 | Version 1.4.0</p>
         </footer>
     </div>
     <script src="scripts.js"></script>

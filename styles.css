@@ -1,6 +1,44 @@
 /* Aanvullende stijlen bovenop Tailwind CSS */
 
-/* Animatie voor kopieer bericht */
+/* Dark mode variables */
+:root {
+    --bg-color: #f3f4f6;
+    --card-bg: #ffffff;
+    --text-color: #1f2937;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --indigo-color: #6366f1;
+    --indigo-hover: #4f46e5;
+    --json-bg: #1f2937;
+    --json-text: #4ade80;
+}
+
+.dark-mode {
+    --bg-color: #1f2937;
+    --card-bg: #374151;
+    --text-color: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border-color: #4b5563;
+    --indigo-color: #818cf8;
+    --indigo-hover: #6366f1;
+    --json-bg: #111827;
+    --json-text: #34d399;
+}
+
+/* Apply dark mode to elements */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.app-card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Animatie voor berichten */
 @keyframes fadeOut {
     0% {
         opacity: 1;
@@ -13,7 +51,7 @@
     }
 }
 
-#copySuccess, #downloadSuccess {
+#copySuccess, #downloadSuccess, #apiSuccess, #apiError {
     animation: fadeOut 2s forwards;
 }
 
@@ -22,6 +60,9 @@
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
     line-height: 1.5;
     tab-size: 4;
+    background-color: var(--json-bg);
+    color: var(--json-text);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 /* Verbeterde focus styling voor toegankelijkheid */
@@ -37,7 +78,7 @@
 
 /* Hover effect voor de drop zone */
 .border-dashed:hover {
-    border-color: #6366F1;
+    border-color: var(--indigo-color);
 }
 
 /* Spinner voor laden */
@@ -51,9 +92,21 @@
     margin: 0 auto;
 }
 
+.dark-mode .spinner {
+    border-color: rgba(255, 255, 255, 0.1);
+    border-top-color: #818cf8;
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* Spinner wit voor knoppen */
+.spinner-white {
+    border-top-color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+    border-top-color: white;
 }
 
 /* Responsieve aanpassingen */
@@ -66,4 +119,139 @@
     #jsonResult {
         max-height: 300px;
     }
+}
+
+/* Dark mode toggle styling */
+.dark-mode-toggle {
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.375rem;
+    transition: all 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .dark-mode-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Additional styles on top of Tailwind CSS */
+
+/* Animation for notifications */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+#copySuccess, #downloadSuccess, #apiSuccess, #apiError {
+    animation: fadeOut 2s forwards;
+}
+
+/* Styling for JSON output */
+#jsonResult {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    line-height: 1.5;
+    tab-size: 4;
+}
+
+/* Improved focus styling for accessibility */
+:focus {
+    outline: 2px solid rgba(99, 102, 241, 0.5);
+    outline-offset: 2px;
+}
+
+/* Transition effects */
+.transition-all {
+    transition: all 0.3s ease;
+}
+
+/* Dark mode toggle */
+.dark-mode-toggle {
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.375rem;
+    transition: all 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .dark-mode-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    #jsonResult {
+        max-height: 300px;
+    }
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #1f2937;
+    color: #f3f4f6;
+}
+
+.dark-mode .app-card {
+    background-color: #374151;
+    border-color: #4b5563;
+}
+
+.dark-mode h1 {
+    color: #818cf8;
+}
+
+.dark-mode #jsonResult {
+    background-color: #111827;
+    color: #34d399;
+}
+
+.dark-mode input[type="text"],
+.dark-mode input[type="radio"] {
+    background-color: #1f2937;
+    color: #f3f4f6;
+    border-color: #4b5563;
+}
+
+.dark-mode label {
+    color: #e5e7eb;
+}
+
+.dark-mode .text-gray-600,
+.dark-mode .text-gray-500 {
+    color: #9ca3af;
+}
+
+.dark-mode .text-gray-800 {
+    color: #f3f4f6;
+}
+
+.dark-mode label[for="fileUpload"] {
+    background-color: #1f2937;
+    border-color: #4b5563;
+}
+
+.dark-mode footer {
+    color: #9ca3af;
+}
+
+.dark-mode .spinner {
+    border-color: rgba(255, 255, 255, 0.1);
+    border-top-color: #818cf8;
 }
