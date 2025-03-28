@@ -29,6 +29,30 @@
             <p class="text-center text-gray-600 mt-2">Upload an Excel file and convert it to JSON</p>
         </header>
 
+        <!-- Uitleg sectie -->
+        <div class="max-w-4xl mx-auto mb-8 bg-white rounded-lg shadow-md p-6 app-card">
+            <h2 class="text-xl font-semibold text-gray-800 mb-3">Over deze tool</h2>
+            <p class="mb-3 text-gray-700">
+                De Inventory Count Tool zet gegevens uit een Excel-bestand om naar een gestandaardiseerde JSON-structuur. 
+                Dit is handig voor het voorbereiden van data voor import in ERP- of inventarissystemen.
+            </p>
+            
+            <div class="border-l-4 border-blue-500 pl-4 py-2 mb-4 bg-blue-50 text-gray-700">
+                <h3 class="font-medium mb-1">Zo werkt het:</h3>
+                <ol class="list-decimal ml-5 space-y-1">
+                    <li>Kies het type ID (ExtLocationId voor locaties of ExtProductId voor producten)</li>
+                    <li>Voer een referentie-identifier in (wordt automatisch ingevuld met de bestandsnaam)</li>
+                    <li>Upload een Excel-bestand waar kolom A de ID-waarden bevat</li>
+                    <li>Klik op "Convert to JSON" om het bestand te verwerken</li>
+                    <li>Kopieer of download het resultaat</li>
+                </ol>
+            </div>
+            
+            <div class="border-l-4 border-yellow-500 pl-4 py-2 bg-yellow-50 text-gray-700">
+                <p><strong>Let op:</strong> De tool verwerkt alleen gegevens uit kolom A van je Excel-bestand.</p>
+            </div>
+        </div>
+
         <main class="bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto app-card">
             <!-- ID Type Selection -->
             <div class="mb-6">

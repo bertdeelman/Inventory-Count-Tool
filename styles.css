@@ -1,257 +1,158 @@
-/* Aanvullende stijlen bovenop Tailwind CSS */
+/* Inventory Count Tool - Custom Styles */
 
-/* Dark mode variables */
-:root {
-    --bg-color: #f3f4f6;
-    --card-bg: #ffffff;
-    --text-color: #1f2937;
-    --text-muted: #6b7280;
-    --border-color: #e5e7eb;
-    --indigo-color: #6366f1;
-    --indigo-hover: #4f46e5;
-    --json-bg: #1f2937;
-    --json-text: #4ade80;
+/* Dark mode toggle button */
+.dark-mode-toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    transition: background-color 0.3s;
 }
 
-.dark-mode {
-    --bg-color: #1f2937;
-    --card-bg: #374151;
-    --text-color: #f3f4f6;
-    --text-muted: #9ca3af;
-    --border-color: #4b5563;
-    --indigo-color: #818cf8;
-    --indigo-hover: #6366f1;
-    --json-bg: #111827;
-    --json-text: #34d399;
+.dark-mode-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
-/* Apply dark mode to elements */
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+body.dark-mode .dark-mode-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-.app-card {
-    background-color: var(--card-bg);
-    border-color: var(--border-color);
-    transition: background-color 0.3s, border-color 0.3s;
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
 }
 
-/* Animatie voor berichten */
+body.dark-mode .app-card {
+    background-color: #2d2d2d;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode h1, 
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode label {
+    color: #f0f0f0;
+}
+
+body.dark-mode p {
+    color: #d0d0d0;
+}
+
+body.dark-mode input[type=text],
+body.dark-mode textarea {
+    background-color: #3d3d3d;
+    color: #f0f0f0;
+    border-color: #4d4d4d;
+}
+
+body.dark-mode input[type=text]:focus,
+body.dark-mode textarea:focus {
+    border-color: #6366F1;
+    background-color: #3d3d3d;
+}
+
+body.dark-mode input[type=text]::placeholder {
+    color: #909090;
+}
+
+body.dark-mode footer {
+    color: #909090;
+}
+
+body.dark-mode pre#jsonResult {
+    background-color: #1a1a1a;
+    border: 1px solid #3d3d3d;
+}
+
+body.dark-mode label[for="fileUpload"] {
+    background-color: #3d3d3d;
+    border-color: #4d4d4d;
+}
+
+body.dark-mode label[for="fileUpload"]:hover {
+    background-color: #4d4d4d;
+}
+
+body.dark-mode label[for="fileUpload"] p {
+    color: #b0b0b0;
+}
+
+body.dark-mode label[for="fileUpload"] svg {
+    color: #909090;
+}
+
+body.dark-mode .border-l-4.border-blue-500 {
+    background-color: rgba(59, 130, 246, 0.15);
+}
+
+body.dark-mode .border-l-4.border-yellow-500 {
+    background-color: rgba(245, 158, 11, 0.15);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .app-card {
+        padding: 1rem;
+    }
+    
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    #resultContainer .flex {
+        flex-direction: column;
+    }
+    
+    #resultContainer .space-x-2 > * {
+        margin-left: 0 !important;
+        margin-top: 0.5rem;
+    }
+}
+
+/* Success notification animation */
 @keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    70% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
+    0% { opacity: 1; }
+    70% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 #copySuccess, #downloadSuccess, #apiSuccess, #apiError {
     animation: fadeOut 2s forwards;
 }
 
-/* Styling voor JSON output */
-#jsonResult {
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    line-height: 1.5;
-    tab-size: 4;
-    background-color: var(--json-bg);
-    color: var(--json-text);
-    transition: background-color 0.3s, color 0.3s;
+/* Spinner animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-/* Verbeterde focus styling voor toegankelijkheid */
-:focus {
-    outline: 2px solid rgba(99, 102, 241, 0.5);
-    outline-offset: 2px;
-}
-
-/* Overgang effecten */
-.transition-all {
-    transition: all 0.3s ease;
-}
-
-/* Hover effect voor de drop zone */
-.border-dashed:hover {
-    border-color: var(--indigo-color);
-}
-
-/* Spinner voor laden */
 .spinner {
     border: 3px solid rgba(0, 0, 0, 0.1);
-    border-top: 3px solid #6366F1;
     border-radius: 50%;
+    border-top: 3px solid white;
     width: 24px;
     height: 24px;
     animation: spin 1s linear infinite;
     margin: 0 auto;
 }
 
-.dark-mode .spinner {
+body.dark-mode .spinner {
     border-color: rgba(255, 255, 255, 0.1);
-    border-top-color: #818cf8;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Spinner wit voor knoppen */
-.spinner-white {
-    border-top-color: white;
-    border-color: rgba(255, 255, 255, 0.3);
     border-top-color: white;
 }
 
-/* Responsieve aanpassingen */
-@media (max-width: 640px) {
-    .container {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-    
-    #jsonResult {
-        max-height: 300px;
-    }
-}
-
-/* Dark mode toggle styling */
-.dark-mode-toggle {
-    cursor: pointer;
-    padding: 0.25rem;
-    border-radius: 0.375rem;
-    transition: all 0.3s ease;
-}
-
-.dark-mode-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.dark-mode .dark-mode-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Additional styles on top of Tailwind CSS */
-
-/* Animation for notifications */
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    70% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-#copySuccess, #downloadSuccess, #apiSuccess, #apiError {
-    animation: fadeOut 2s forwards;
-}
-
-/* Styling for JSON output */
-#jsonResult {
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    line-height: 1.5;
-    tab-size: 4;
-}
-
-/* Improved focus styling for accessibility */
+/* Focus styles for accessibility */
 :focus {
-    outline: 2px solid rgba(99, 102, 241, 0.5);
-    outline-offset: 2px;
-}
-
-/* Transition effects */
-.transition-all {
-    transition: all 0.3s ease;
-}
-
-/* Dark mode toggle */
-.dark-mode-toggle {
-    cursor: pointer;
-    padding: 0.25rem;
-    border-radius: 0.375rem;
-    transition: all 0.3s ease;
-}
-
-.dark-mode-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.dark-mode .dark-mode-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Responsive adjustments */
-@media (max-width: 640px) {
-    .container {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-    
-    #jsonResult {
-        max-height: 300px;
-    }
-}
-
-/* Dark mode styles */
-body.dark-mode {
-    background-color: #1f2937;
-    color: #f3f4f6;
-}
-
-.dark-mode .app-card {
-    background-color: #374151;
-    border-color: #4b5563;
-}
-
-.dark-mode h1 {
-    color: #818cf8;
-}
-
-.dark-mode #jsonResult {
-    background-color: #111827;
-    color: #34d399;
-}
-
-.dark-mode input[type="text"],
-.dark-mode input[type="radio"] {
-    background-color: #1f2937;
-    color: #f3f4f6;
-    border-color: #4b5563;
-}
-
-.dark-mode label {
-    color: #e5e7eb;
-}
-
-.dark-mode .text-gray-600,
-.dark-mode .text-gray-500 {
-    color: #9ca3af;
-}
-
-.dark-mode .text-gray-800 {
-    color: #f3f4f6;
-}
-
-.dark-mode label[for="fileUpload"] {
-    background-color: #1f2937;
-    border-color: #4b5563;
-}
-
-.dark-mode footer {
-    color: #9ca3af;
-}
-
-.dark-mode .spinner {
-    border-color: rgba(255, 255, 255, 0.1);
-    border-top-color: #818cf8;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
 }

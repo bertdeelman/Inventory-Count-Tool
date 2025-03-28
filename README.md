@@ -2,6 +2,24 @@
 
 Een eenvoudige webapplicatie waarmee je een Excel-bestand kunt uploaden en converteren naar een specifiek JSON-formaat, met de mogelijkheid om de data te downloaden.
 
+## Wat doet deze tool?
+
+De Inventory Count Tool is ontworpen om het eenvoudig te maken om gegevens uit een Excel-bestand om te zetten naar een gestandaardiseerd JSON-formaat voor inventarisatie-doeleinden. De tool verwerkt specifieke ID's uit kolom A van je Excel-bestand en voegt deze toe aan een voorgedefinieerde JSON-structuur.
+
+### Gebruikssituaties
+
+- **Voorbereiding van data voor ERP- of inventarissystemen**: Bereid data voor die geïmporteerd moet worden in systemen die JSON-input accepteren
+- **Datavalidatie**: Controleer of de ID's uit je Excel-bestand correct worden geconverteerd voor gebruik in andere systemen
+- **Gestandaardiseerde gegevensuitwisseling**: Maak het delen van inventarisatiegegevens gemakkelijker door een consistente datastructuur te gebruiken
+
+### Hoe werkt het?
+
+1. Je kiest het type ID dat je wilt gebruiken: ExtLocationId (voor locaties) of ExtProductId (voor producten)
+2. Je uploadt een Excel-bestand waarin kolom A de ID-waarden bevat die je wilt verwerken
+3. De tool leest alleen kolom A en negeert andere kolommen
+4. De tool genereert een JSON-object met de ID's in de vereiste structuur
+5. Je kunt het resultaat kopiëren of downloaden voor verder gebruik
+
 ## Functies
 
 - Excel-bestand uploaden (.xlsx, .xls)
