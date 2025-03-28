@@ -85,12 +85,29 @@ body.dark-mode label[for="fileUpload"] svg {
     color: #909090;
 }
 
+/* Verbeterde leesbaarheid voor instructieblokken in donkere modus */
 body.dark-mode .border-l-4.border-blue-500 {
-    background-color: rgba(59, 130, 246, 0.15);
+    background-color: rgba(59, 130, 246, 0.2);
+    border-color: #3b82f6;
+    color: #e2e8f0;
+}
+
+body.dark-mode .border-l-4.border-blue-500 h3 {
+    color: #93c5fd;
+}
+
+body.dark-mode .border-l-4.border-blue-500 ol {
+    color: #e2e8f0;
 }
 
 body.dark-mode .border-l-4.border-yellow-500 {
-    background-color: rgba(245, 158, 11, 0.15);
+    background-color: rgba(245, 158, 11, 0.2);
+    border-color: #f59e0b;
+    color: #e2e8f0;
+}
+
+body.dark-mode .border-l-4.border-yellow-500 strong {
+    color: #fcd34d;
 }
 
 /* Responsive adjustments */
@@ -139,7 +156,7 @@ body.dark-mode .border-l-4.border-yellow-500 {
 .spinner {
     border: 3px solid rgba(0, 0, 0, 0.1);
     border-radius: 50%;
-    border-top: 3px solid white;
+    border-top: 3px solid #6366F1;
     width: 24px;
     height: 24px;
     animation: spin 1s linear infinite;
